@@ -3,14 +3,19 @@ package com.demo.example.student_library_management_system.model;
 import com.demo.example.student_library_management_system.enums.Genre;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "book")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Book {
 
     @Id
@@ -33,4 +38,15 @@ public class Book {
 
     @Column(name = "is_available", nullable = false)
     private boolean isAvailable;
+
+    @ManyToOne
+    @JoinColumn
+    private Author author;
+
+    @ManyToOne
+    @JoinColumn
+    private Card card;
+
+    @OneToMany(mappedBy = "book")
+    private List<Transaction> transactionList = new ArrayList<>();
 }

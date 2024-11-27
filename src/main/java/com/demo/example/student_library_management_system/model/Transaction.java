@@ -3,6 +3,7 @@ package com.demo.example.student_library_management_system.model;
 import com.demo.example.student_library_management_system.enums.TransactionStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Transaction {
 
     @Id
@@ -37,4 +39,12 @@ public class Transaction {
 
     @Column(name = "due_date")
     private String dueDate;
+
+    @ManyToOne
+    @JoinColumn
+    private Card card;
+
+    @ManyToOne
+    @JoinColumn
+    private Book book;
 }

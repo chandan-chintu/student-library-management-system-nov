@@ -33,4 +33,22 @@ public class StudentController {
         List<Student> studentList = studentService.getAllStudents();
         return studentList;
     }
+
+    @GetMapping("/count")
+    public String countStudents(){
+        long count = studentService.countStudents();
+        return "Total students present in database are :"+count;
+    }
+
+    @DeleteMapping("/delete/{studentId}")
+    public String deleteStudentById(@PathVariable int studentId){
+        String response = studentService.deleteStudentById(studentId);
+        return response;
+    }
+
+    @PutMapping("/update/{studentId}")
+    public String updateStudent(@PathVariable int studentId, @RequestBody StudentRequestDto studentRequestDto){
+        String response = studentService.updateStudent(studentId,studentRequestDto);
+        return response;
+    }
 }

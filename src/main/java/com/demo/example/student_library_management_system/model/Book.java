@@ -52,6 +52,6 @@ public class Book {
     private Card card;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
     private List<Transaction> transactionList = new ArrayList<>();
 }

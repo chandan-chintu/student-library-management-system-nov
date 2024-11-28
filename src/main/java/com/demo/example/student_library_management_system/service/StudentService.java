@@ -43,4 +43,33 @@ public class StudentService {
         List<Student> studentList = studentRepository.findAll();
         return studentList;
     }
+
+    public long countStudents(){
+        long count = studentRepository.count();
+        return count;
+    }
+
+    public String deleteStudentById(int studentId){
+        studentRepository.deleteById(studentId);
+        return "student deleted";
+    }
+
+    public String updateStudent(int studentId, StudentRequestDto newStudentRequestDto){
+        // first take studentId and find student details
+        // if student present update it
+        // else no need
+        Student student = getStudentById(studentId);
+        if(student!=null){
+            student.setName(newStudentRequestDto.getName());
+            student.setGender(newStudentRequestDto.getGender());
+            student.setSem(newStudentRequestDto.getSem());
+            student.setDob(newStudentRequestDto.getDob());
+            student.setEmail(newStudentRequestDto.getEmail());
+            student.setDepartment(newStudentRequestDto.getDepartment());
+            studentRepository.save(student);
+            return "student updated successfully";
+        } else {
+            return "Cannot find student to update";
+        }
+    }
 }

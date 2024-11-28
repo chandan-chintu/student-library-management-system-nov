@@ -47,10 +47,10 @@ public class Card {
     private Student student;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
     private List<Book> booksIssuedToCard = new ArrayList<>();
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card",cascade = CascadeType.ALL)
     private List<Transaction> transactionsForCard = new ArrayList<>();
 }

@@ -1,6 +1,8 @@
 package com.demo.example.student_library_management_system.model;
 
 import com.demo.example.student_library_management_system.enums.Genre;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,16 +39,19 @@ public class Book {
     private Genre genre;
 
     @Column(name = "is_available", nullable = false)
-    private boolean isAvailable;
+    private boolean available;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn
     private Author author;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn
     private Card card;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "book")
     private List<Transaction> transactionList = new ArrayList<>();
 }

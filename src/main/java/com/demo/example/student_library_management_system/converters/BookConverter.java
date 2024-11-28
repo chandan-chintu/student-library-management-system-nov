@@ -13,7 +13,7 @@ public class BookConverter {
                 .pages(bookRequestDto.getPages())
                 .publisherName(bookRequestDto.getPublisherName())
                 .genre(bookRequestDto.getGenre())
-                .isAvailable(bookRequestDto.isAvailable())
+                .available(bookRequestDto.isAvailable())
                 .build();
         return book;
     }

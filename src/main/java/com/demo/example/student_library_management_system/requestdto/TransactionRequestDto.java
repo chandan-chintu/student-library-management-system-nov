@@ -9,8 +9,10 @@ public class TransactionRequestDto {
 
     private TransactionStatus transactionStatus;
     private double fine;
-    private boolean isIssueOrReturn;
+    private boolean issueOrReturn;
     private String dueDate;
     private int bookId;
     private int cardId;
+
+
 }

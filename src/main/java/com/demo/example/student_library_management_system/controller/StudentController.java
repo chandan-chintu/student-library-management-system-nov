@@ -34,6 +34,12 @@ public class StudentController {
         return studentList;
     }
 
+    @GetMapping("/findByPage")
+    public List<Student> getStudentsByPage(@RequestParam int pageNo, @RequestParam int pageSize, @RequestParam String sortInput){
+        List<Student> studentList = studentService.getStudentsBasedOnPage(pageNo,pageSize, sortInput);
+        return studentList;
+    }
+
     @GetMapping("/count")
     public String countStudents(){
         long count = studentService.countStudents();
@@ -50,5 +56,17 @@ public class StudentController {
     public String updateStudent(@PathVariable int studentId, @RequestBody StudentRequestDto studentRequestDto){
         String response = studentService.updateStudent(studentId,studentRequestDto);
         return response;
+    }
+
+    @GetMapping("/findByDept")
+    public List<Student> getStudentByDepartment(@RequestParam String department){
+        List<Student> studentList = studentService.getStudentByDepartment(department);
+        return studentList;
+    }
+
+    @GetMapping("/findBySem")
+    public List<Student> getStudentBySem(@RequestParam String sem){
+        List<Student> studentList = studentService.getStudentBySem(sem);
+        return studentList;
     }
 }

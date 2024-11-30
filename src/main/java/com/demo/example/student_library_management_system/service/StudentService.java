@@ -7,6 +7,8 @@ import com.demo.example.student_library_management_system.model.Card;
 import com.demo.example.student_library_management_system.model.Student;
 import com.demo.example.student_library_management_system.repository.StudentRepository;
 import com.demo.example.student_library_management_system.requestdto.StudentRequestDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,8 +24,15 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    Logger logger = LoggerFactory.getLogger(StudentService.class);
+
     public String addStudent(StudentRequestDto studentRequestDto){
+        logger.info("addStudent method started");
         Student student = StudentConverter.convertStudentRequestDtoIntoStudent(studentRequestDto);
+        if(student==null){
+            logger.error("Error in addStudent method");
+            throw new RuntimeException();
+        }
 
         //whenever the student gets added card also issued to that student
         Card card = new Card();
@@ -33,12 +42,19 @@ public class StudentService {
         student.setCard(card);
 
         studentRepository.save(student);
+        logger.info("addStudent method ended");
         return "Student and card Saved Successfully";
     }
 
     public Student getStudentById(int studentId){
+        logger.info("getStudentById method started");
         Optional<Student> studentOptional = studentRepository.findById(studentId);
+        if(!studentOptional.isPresent()){
+            logger.error("Error in getStudentById method");
+            throw new RuntimeException("Student not found");
+        }
         Student student = studentOptional.get();
+        logger.info("getStudentById method ended");
         return student;
     }
 
